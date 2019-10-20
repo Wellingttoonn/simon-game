@@ -3,14 +3,41 @@ let gameSequence = []; // Colors randomly selected by computer
 let playerSequence = []; // Colors selected by user
 let started = false;
 let level = 0;
+let modal = $('.modal');
+let darkOverlay = $('.dark-overlay');
+
 
 // Event listener for keypress
 $(document).keypress(()=> {
+  // if(!started) {
+  //   computerChoice();
+  //   started = true;
+  // }
+
+  startGame();
+})
+
+$('.start-btn').click(()=>{
+  // if(!started) {
+  //   computerChoice();
+  //   started = true;
+  // }
+
+  startGame();
+})
+
+function startGame() {
+
   if(!started) {
+    modal.fadeOut(100);
+    darkOverlay.fadeOut(100);
     computerChoice();
     started = true;
   }
-}) 
+
+}
+
+
 
 // Computer select a color
 function computerChoice(){
@@ -49,7 +76,7 @@ function playerChoice(e) {
 
 // Compare the arrays, gameSequence and ´playerSequence
 function compare() {
-  // Index of the last selected color by player 
+  // Index of the last selected color by player
   let compfactor = playerSequence.length - 1;
   // Check if the last item selected by player is equal to the item in gameSequence array
   if(playerSequence[compfactor] === gameSequence[compfactor]) {
@@ -77,6 +104,12 @@ function gameOver() {
   // Play audio from wrong choice
   var wrong = new Audio('sounds/wrong.mp3');
   wrong.play();
+
+  $('.modal-text').text('Game Over, Play Again?');
+  $('.start-btn').text('Play Again');
+
+  modal.fadeIn(300);
+  darkOverlay.fadeIn(300);
 }
 
 // Function to Animate the pressed button
